@@ -73,27 +73,32 @@ provider "aws" {
   region = "sa-east-1"
 }
 
-resource "aws_instance" "web2" {
-  subnet_id = "subnet-02d7741675f030d69"
-  ami = "ami-083654bd07b5da81d"
+resource "aws_instance" "mineiro-web" {
+  subnet_id     = "subnet-0842414f901483088"
+  ami           = var.ubuntu_ami
   instance_type = "t2.micro"
-  key_name = "teste" # a chave que vc tem na maquina pessoal
+  key_name = "kp-mineiro"
   associate_public_ip_address = true
-  vpc_security_group_ids = ["sg-083654bd07b5da81d"]
+  vpc_security_group_ids = ["sg-00b4800cc931fe9d0"]
   root_block_device {
     encrypted = true
     volume_size = 8
   }
   tags = {
-    Name = "ec2-zerati-tf"
+    Name = "mineiro-web-tf"
   }
+}
+
+/*
+output "subnet_cidr_blocks" {
+  value = [for s in data.aws_subnet.subnets : s.cidr_block]
 }
 
 resource "aws_key_pair" "chave_key" {
   key_name   = "chave_key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABUAHUAHuaHaUhAUhAUAiqHA541BsJFngWPqlx27QdAZEWdMLvJv5Wguvatb6LIDo1V3rJ4mUtRRs0o2q3LwYiA5CIkiHFXyNVhXTF1WNAbRossUMsu/BzmgEKyIPPgPHeM0PyRi6FuW1TTZYdnO/GCzJ0UMvZFKnr2g6rELWgdc9Clxz8peNJ+iPJx/sJb+DxTuHDJc1U9eOYS7vlwzsHHApD9O+DbWnpwRpSEuX3vjm5pEEAPqrcBD3HK8kH2qMVRZNxg/fSzSrzjCwFV3ShNbKSTD6HYBV2xCY18mRFjyW94BPSBDGel7/kqTmXY4jtbAoyycWRZJFYhCdzNfItT69nHmsT3i09e0J9jNI6CaameQg/cwIOt8fl+lxUIAufHqFDJPGMJcNFoVR7t7yWPXN3qev2OlGnQONDVlNOmIJDrO+r2QeoVcKaxKye7G3HD3u4HuqGYfL9MtCo6pOZ8IZsCCj2KpS4KQCc="
 }
-
+*/
 
 # /////
 

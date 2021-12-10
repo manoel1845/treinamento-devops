@@ -11,3 +11,8 @@ variable "image_id" {
 output "image_id" {
     value = var.image_id
 }
+
+1 - Imagem - e validar
+2 - subnet - e validar
+3 - tamanho - e validar
+4 - nome - e validar se digitou
