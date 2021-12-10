@@ -1,11 +1,11 @@
 data "aws_ami" "ami-ubuntu" {
-    most_recent = true
+  most_recent = true
 
-    filter {
-        name   = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-    }
-    owners = ["099720109477"]
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+  owners = ["099720109477"]
 }
 
 resource "aws_instance" "ec2-az-a" {
