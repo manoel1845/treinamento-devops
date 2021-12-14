@@ -6,8 +6,18 @@ data "http" "myip" {
   url = "http://ipv4.icanhazip.com" # outra opção "https://ifconfig.me"
 }
 
+data "aws_ami" "ami-ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+  owners = ["099720109477"]
+}
+
 resource "aws_instance" "k8s_proxy" {
-  ami           = "ami-0d6806446a46f9b9c"
+  ami           = data.aws_ami.ami-ubuntu.id
   subnet_id = "subnet-08d1dcb60f40fe297"
   instance_type = "t2.medium"
   key_name      = "Ubuntu-dev-bira"

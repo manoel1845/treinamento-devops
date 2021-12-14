@@ -3,3 +3,7 @@ variable "ip_haproxy" {
   default = "187.3.223.136"
   description = "Passe aqui o IP do haproxy"
 }
+
+variable "key_name" {
+  default = "kp-mineiro"
+}

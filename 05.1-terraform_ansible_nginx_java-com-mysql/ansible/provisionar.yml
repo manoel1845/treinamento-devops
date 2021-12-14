@@ -60,7 +60,7 @@
     - name: "Criando senha root mysql"
       become: yes
       mysql_user:
-        name: "{{ lookup('env', 'ROOT') }}"
+        name: "{{ lookup('env', 'USER') }}"
         host: localhost
         password: "{{ lookup('env', 'PASSWORD') }}"
         priv: "*.*:ALL,GRANT"

@@ -131,6 +131,7 @@
         - curl
         - gpg-agent
         - software-properties-common
+        - net-tools
 
     - name: add docker GPG key
       become: true

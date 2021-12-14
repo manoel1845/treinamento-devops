@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "sa-east-1"
 }
 
-data "http" "myip" {
-  url = "http://ipv4.icanhazip.com" # outra opção "https://ifconfig.me"
-}
+# data "http" "myip" {
+#   url = "http://ipv4.icanhazip.com" # outra opção "https://ifconfig.me"
+# }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -12,22 +12,22 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*"] # exemplo de como listar um nome de AMI - 'aws ec2 describe-images --region us-east-1 --image-ids ami-09e67e426f25ce0d7' https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"] # exemplo de como listar um nome de AMI - 'aws ec2 describe-images --region us-east-1 --image-ids ami-09e67e426f25ce0d7' https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html
   }
 }
 
 resource "aws_instance" "maquina_nginx_java_mysql" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.medium"
-  key_name      = "treinamento-turma1_itau"
+  key_name      = "kp-mineiro"
   associate_public_ip_address = true
 
-  # subnet_id      = "subnet-12282387382372378"
+  subnet_id      = "subnet-0842414f901483088"
 
-  # root_block_device {
-  #   encrypted = true
-  #   volume_size = 8
-  # }
+  root_block_device {
+    encrypted = true
+    volume_size = 8
+  }
 
   tags = {
     Name = "maquina_ansible_com_nginx_java_mysql"
@@ -36,9 +36,9 @@ resource "aws_instance" "maquina_nginx_java_mysql" {
 }
 
 resource "aws_security_group" "acessos" {
-  name        = "acessos nginx java mysql"
+  name        = "sg_nginx_java_mysql_mineiro"
   description = "acessos nginx java mysql inbound traffic"
-  # vpc_id      = "vpc-12282387382372378"
+  vpc_id      = "vpc-03d1b7e53da104e7c"
 
   ingress = [
     {
@@ -46,7 +46,7 @@ resource "aws_security_group" "acessos" {
       from_port        = 22
       to_port          = 22
       protocol         = "tcp"
-      cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
+      cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
       prefix_list_ids = null,
       security_groups: null,
@@ -57,7 +57,7 @@ resource "aws_security_group" "acessos" {
       from_port        = 80
       to_port          = 80
       protocol         = "tcp"
-      cidr_blocks      = ["${chomp(data.http.myip.body)}/32"]
+      cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
       prefix_list_ids = null,
       security_groups: null,

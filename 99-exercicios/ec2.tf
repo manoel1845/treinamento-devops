@@ -9,12 +9,12 @@ data "aws_ami" "ami-ubuntu" {
 }
 
 resource "aws_instance" "ec2-az-a" {
-  subnet_id                   = aws_subnet.subnet-az-a.id
+  subnet_id                   = "subnet-0842414f901483088"
   ami                         = data.aws_ami.ami-ubuntu.id
   instance_type               = var.instance_type
-  key_name                    = aws_key_pair.kp-mineiro-us.id
+  key_name                    = "kp-mineiro"
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids      = ["sg-019bc97dd2a567acb"]
   root_block_device {
     encrypted   = true
     volume_size = 8
