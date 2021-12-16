@@ -3,6 +3,5 @@ kind: ConfigMap
 metadata:
   name: remote-mysql-configmap
 data:
-  DATABASE_URL: "https://10.104.78.82:3306"
-  USER: "root"
-  PASSWORD: "d4i5dox1%2^4"
+  DATABASE_URL: 'mysql://svc-mysql:3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true'
+  USER: 'root'

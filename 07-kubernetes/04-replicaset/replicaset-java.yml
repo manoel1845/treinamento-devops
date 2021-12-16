@@ -16,9 +16,9 @@ spec:
             - name: USER
               value: root
             - name: PASSWORD
-              value: password_mysql
+              value: root
             - name: DATABASE_URL
-              value: mysql://mysql:3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC
+              value: 'mysql://svc-mysql:3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true'
               # value: mysql://10.111.41.255:3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC
           ports:
             - containerPort: 8080
